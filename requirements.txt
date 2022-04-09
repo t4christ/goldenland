@@ -4,6 +4,7 @@ django==3.0
 django-crispy-forms
 psycopg2-binary==2.8.6
 python-magic
+djongo
 boto
 Pillow
 dj3-cloudinary-storage
