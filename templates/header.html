@@ -1,0 +1,106 @@
+{% load static %} 
+  <!-- ================== The Nav Bar ===================    -->
+  <div class="nav_bar">
+    <div class="container">
+      <div class="nav_contents flex">
+        <div class="logo">
+          <a href="/"
+            ><img src="{% static 'assets/images/Golden Land Invst Ltd.png' %}" alt="" />
+          </a>
+        </div>
+        <div class="nav_links flex">
+          <ul class="flex">
+            <li><a href="/">Home</a></li>
+            <li><a href="#about">About us</a></li>
+            <li><a href="#now-selling">Now selling</a></li>
+            <li><a href="{% url 'gdapp:realtor_register' %}">Become a realtor</a></li>
+          </ul>
+          <a href="#contact" id="contct">Contact</a>
+        </div>
+        <div class="burger">
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div id="message-info">
+    {% for message in messages %}
+    {% if 'success' in message.tags %}
+    <div class = "success-wrapper">
+    <p class="success-text">{{ message|striptags }}</p>
+    </div>
+    {% elif 'error' in message.tags %}
+    <div class = "error-wrapper">
+    <p class="fail-text">Error! {{ message|striptags }}</p>
+  </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+
+
+
+
+
+  <style>
+
+@keyframes messages {
+  from {left:-100%;}
+  to {width: 100%;}
+}
+
+@keyframes errorText {
+  from {opacity:0;}
+  to {opacity:1;}
+}
+
+.errorText {
+  animation-name: errorText;
+  animation-duration: 2s;
+  animation-direction: alternate;
+}
+
+#message-info {
+  position:fixed;
+  width:400px;
+  left: 100%;
+  transform: translate(-100%, 0);
+  animation-name: messages;
+  animation-duration: 2s;
+  animation-timing-function: ease-in;
+  z-index: 500;
+}
+
+.errorlist{
+  animation-name: errorText;
+  animation-duration: 2s;
+  animation-direction: alternate;
+}
+
+    .success-wrapper {
+      float:right;
+      /* width:400px; */
+      background:lightgreen;
+      display: flex;
+      text-align: center;
+      height: 60px;
+      align-items: center;
+      margin-top:82px;
+    }
+    .success-wrapper,.error-wrapper p{
+      color:white
+    }
+    .error-wrapper {
+      float:right;
+      /* width:400px; */
+      background:lightcoral;
+      display: flex;
+      text-align: center;
+      height: 60px;
+      align-items: center;
+      margin-top:82px;
+    }
+  </style>
+

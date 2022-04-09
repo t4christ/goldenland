@@ -1,0 +1,90 @@
+
+{% extends "base.html" %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+{% block style %}
+  
+<link rel="stylesheet" href="{% static 'css/realtor.css' %}" />
+
+{% endblock style %}
+
+    <!-- ========================= Becoming a realtor ======================  -->
+
+    <div class="becoming_a_realtor">
+      <div class="realtor_head">
+        <h3>Become a Realtor</h3>
+        <div class="benefits">
+          <h3>What Are the Benefits of Becoming a REALTOR?</h3>
+          <p>
+            While becoming a REALTOR is not required for you to have a
+            successful career in real estate, there are many advantages that
+            will help you stand out in your industry.
+          </p>
+        </div>
+
+        <div class="networking">
+          <h3>Networking</h3>
+          <p>
+            Becoming a member of the NAR provides you with a unique title and
+            gravitas that many other agents do not possess. Additionally, you
+            will be able to develop a lasting relationship with other agents,
+            which can expand your sphere of influence and network and help you
+            grow your business.
+          </p>
+        </div>
+
+        <div class="certifications">
+          <h3>Real Estate Designations and Certifications</h3>
+          <p>
+            As a REALTOR, you will have the ability to take additional classes
+            that will allow you to receive highly sought-after real estate
+            designations. These designations can help you become an expert in
+            your niche and allow you to grow your business and increase your
+            earnings and income potential. A list of some of the most popular
+            certifications is as follows.
+          </p>
+        </div>
+      </div>
+
+      <div class="realtor_form" >
+        <h2>Fill in the form below to get started</h2>
+        <form action="" method="post" id="realtor_form">
+          {% csrf_token %}
+          <div class="tab">
+            <h2>Step One</h2>
+          {{ register_form}}
+        </div>
+
+        <div class="tab">
+          <h2>Step Two</h2>
+          {{realtor_form}}
+        </div>
+            <!-- Circles which indicates the steps of the form: -->
+            <!-- <div style="overflow:auto;">
+              <div style="float:right;">
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+              </div>
+            </div> -->
+
+          <!-- <div style="text-align:center;margin-top:40px;">
+            <span class="step"></span>
+            <span class="step"></span>
+          </div> -->
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+
+
+
+    {% endblock content %}
+
+<!-- {% block js %}
+<script src="{% static 'js/realtor.js' %}" defer></script>
+{% endblock js %} -->

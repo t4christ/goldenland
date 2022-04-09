@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+
+{% block content %}
+
+
+
+  {% block style %}
+
+  <link rel="stylesheet" href="{% static 'css/pageListing.css' %}" />
+
+  {% endblock style %}
+
+    <!-- ==================== Now Selling Full Details ====================  -->
+    <div class="listings container">
+      <div class="address animate_up">Ketu, Epe</div>
+      <div class="property_image animate_up">
+        <img src="{% static 'assets/images/evidence.jpeg' %}" alt="" />
+      </div>
+      <div class="summary">
+        <span class="summary_title animate_up"><h3>Quick Summary</h3></span>
+        <div class="summary_content animate_up">
+          <div class="location">Location:<span> Ketu, Epe</span></div>
+          <div class="price">Price<span>$45 000</span></div>
+          <div class="property_type">Property type<span>Land</span></div>
+          <div class="status">Status:<span>Sale</span></div>
+          <div class="area">
+            Area:
+            <span>560m<sup>2</sup></span>
+          </div>
+          <div class="beds">Beds:<span>null</span></div>
+          <div class="bath">Baths:<span>null</span></div>
+          <div class="garages">Garages:<span>null</span></div>
+        </div>
+        <div class="property_description">
+          <h3>Property Description</h3>
+          <div class="property_description_content animate_up">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint
+              molestiae ea vitae fuga similique deleniti a. Nisi officiis
+              impedit praesentium sed dolore. Alias similique qui, ab,
+              aspernatur quia provident iusto perferendis exercitationem vero,
+              non natus praesentium. Inventore porro enim sit placeat, cumque
+              omnis totam iste dicta cum, temporibus hic quia. Lorem ipsum dolor
+              sit amet consectetur adipisicing elit. Sint molestiae ea vitae
+              fuga similique deleniti a. Nisi officiis impedit praesentium sed
+              dolore. Alias similique qui, ab, aspernatur quia provident iusto
+              perferendis exercitationem vero, non natus praesentium. Inventore
+              porro enim sit placeat, cumque omnis totam iste dicta cum,
+              temporibus hic quia.
+            </p>
+          </div>
+        </div>
+        <div class="video_presentation">-No preview available-</div>
+      </div>
+
+      <!-- <div class="contact_agent">
+        <div class="agent_info">
+          <div class="agent_image"></div>
+          <div class="agent_description"></div>
+        </div>
+      </div> -->
+    </div>
+
+    <!-- ==================== Properties for you =====================  -->
+    <div class="properties_for_you">
+      <div class="properties_content container">
+        <h3><span></span>New properties for you</h3>
+        <div class="properties_grid"></div>
+      </div>
+    </div>
+
+    {% endblock content %}
