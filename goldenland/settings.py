@@ -31,7 +31,7 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost','goldenland.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
