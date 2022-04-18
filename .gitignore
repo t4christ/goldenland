@@ -1,6 +1,6 @@
 .env
 db_script
 media
-staticfiles
-static
+#staticfiles
+#static
 slowpacerapper.github.io
