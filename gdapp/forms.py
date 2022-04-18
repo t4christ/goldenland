@@ -1,5 +1,14 @@
 from django import forms
-from .models import Realtor,GENDER
+from .models import Realtor,GENDER, RealtorDownline
+import datetime 
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(label="Username")
+    password = forms.CharField(widget=forms.PasswordInput())
+
+
+
 
 class RealtorForm(forms.ModelForm):
     first_name = forms.CharField(label="First Name",required=True, widget=forms.TextInput(attrs={'placeholder':'First Name'}))
@@ -26,6 +35,13 @@ class RealtorForm(forms.ModelForm):
             raise forms.ValidationError("Mobile number must be 11 digits")
         return mobile
 
+    def clean_date_of_birth(self):
+        date_of_birth =  self.cleaned_data.get("date_of_birth") #datetime.datetime.strptime(str(self.cleaned_data.get("date_of_birth")),"%Y-%b-%d")
+        year_difference = datetime.date.today().year - date_of_birth.year
+        if year_difference < 18:
+                raise forms.ValidationError("You must be older than 18yrs")
+        return date_of_birth
+
     def save(self, commit=True):
         # Save the provided password in hashed format
         # user = super().save(commit=False)
@@ -33,3 +49,17 @@ class RealtorForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+
+
+class RealtorDownlineForm(forms.ModelForm):
+    full_name = forms.CharField(label="Full Name",required=True, widget=forms.TextInput(attrs={'placeholder':'Full Name'}))
+    email = forms.EmailField(label="Email",required=True, widget=forms.TextInput(attrs={'placeholder':'Email Address'}))
+    mobile = forms.IntegerField(label="Mobile",required=False, widget=forms.TextInput(attrs={'placeholder':'Mobile'}))
+    
+    class Meta:
+        model = RealtorDownline
+        fields = ('full_name','mobile','email',)
+
+

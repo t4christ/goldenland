@@ -10,3 +10,4 @@ Pillow
 dj3-cloudinary-storage
 dj3-cloudinary-storage[video]
 dj-static
+shortuuid

@@ -1,0 +1,116 @@
+
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block head_title %}Realtor Dashboard{% endblock head_title %}
+{% block content %}
+
+{% block style %}
+  
+<link rel="stylesheet" href="{% static 'css/realtor-dashboard.css' %}" />
+
+{% endblock style %}
+
+    <div class="toast" id="copy-toast">
+      <p>Your link has been copied Succesfully</p>
+    </div>
+    <div class="toast" id="update-profile-toast">
+      <p>Your profile has been updated Succesfully</p>
+    </div>
+    <!-- ==================== Dashboard ======================  -->
+    <div class="dashboard__wrapper">
+      <div class="menu__list">
+        <span></span>
+        <span></span>
+      </div>
+      <div class="dashboard">
+        <span id="times">&times;</span>
+        <div class="navigations">
+          <div class="logo">
+            <a href="/"
+              ><img
+                src="{% static 'assets/images/Golden Land Invst ltd Black logo.jpg' %}"
+                alt=""
+            /></a>
+          </div>
+          <div class="stats navs active">
+            <a href="#stats">
+              <img
+                src="{% static 'assets/images/outline_add_chart_black_24dp.png' %}"
+                alt=""
+              />
+              Stats</a
+            >
+          </div>
+          <div class="profile navs">
+            <a href="#profile">
+              <img src="{% static 'assets/images/outline_person_black_24dp.png' %}" alt="" />
+              Profile</a
+            >
+          </div>
+        </div>
+        <div class="username">{{ realtor.first_name }} {{ realtor.last_name }}</div>
+      </div>
+      <div class="dashboard__content">
+        <div class="profile__content">
+          <div class="header">
+            <h3><span></span> Profile Information</h3>
+          </div>
+          <div class="body">
+            <form action="">
+                           <div><img
+                  src="{% static 'assets/images/outline_edit_note_black_24dp.png' %}"
+                  alt=""
+                  id="edit-info"
+              /></div>
+              <button id="update" type="submit">Update</button>
+            </form>
+          </div>
+        </div>
+        <div class="stats__content show">
+          <h3><span></span> Your stats:</h3>
+          <div class="referred__clients">
+            <p>
+              You have referred <span id="client_number">{{clients |length }}</span> clients to
+              Goldenland
+            </p>
+          </div>
+          <div class="referral__code">
+            <h3>Your referral code</h3>
+            <div class="referral__info">
+              <input
+                type="text"
+                name=""
+                id="referral__code"
+                disabled
+                value="{{referral_link}}"
+              />
+              <button type="button" id="copy">copy</button>
+            </div>
+          </div>
+          <div class="client__details">
+            <h3>Clients Referred</h3>
+            {% for client in clients %}
+            <div class="client__info">
+              <h4>{{ client.full_name }}</h4>
+              <span>{{ client.email }}</span>
+            </div>
+            {% endfor %}
+            
+            <div class="scroll__btns">
+              <div id="up">&LongRightArrow;</div>
+              <div id="down">&LongRightArrow;</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% endblock content %}
+
+
+    {% block js %}
+
+    <script src="{% static 'js/realtor-dashboard.js' %}" defer></script>
+    {% endblock js %}

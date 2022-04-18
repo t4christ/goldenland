@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from .utils import generate_referral_code
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 
 
@@ -8,6 +9,14 @@ GENDER = (
         ('Male','Male'),
         ('Female', 'Female'),
     )
+
+
+PROPERTY_TYPE= (
+        ('None','None'),
+        ('Land','Land'),
+        ('Buildings', 'Buildings'),
+    )
+
 
 class MyUserManager(BaseUserManager):
     def create_user(self, username=None, email=None, password=None):
@@ -106,6 +115,7 @@ class MyUser(AbstractBaseUser,PermissionsMixin):
         return self.is_admin
 
 
+
 class Realtor(models.Model):
     realtor = models.OneToOneField(MyUser, on_delete=models.CASCADE, null=True, blank = True)
     first_name = models.CharField(max_length=150,default='')
@@ -117,6 +127,85 @@ class Realtor(models.Model):
     date_of_birth = models.DateField()
     mobile= models.CharField(max_length=13,null=True,blank=True,unique=True)
     gender= models.CharField(max_length=15, choices=GENDER,default='None')
+    referral_code = models.CharField(max_length=40,default='',unique=True)
+
 
     def __str__(self):
         return self.first_name + self.last_name
+
+
+class RealtorDownline(models.Model):
+    realtor = models.ForeignKey(Realtor, on_delete=models.CASCADE, null=True, blank = True)
+    # property = models.ForeignKey(, on_delete=models.CASCADE, null=True, blank = True)
+    full_name = models.CharField(max_length=150,default='')
+    email = models.CharField(max_length=150,default='',unique=True)
+    mobile = models.CharField(max_length=13,default='',unique=True)
+    referral_code = models.CharField(max_length=40,default='')
+
+    def __str__(self):
+        return "Client name is " + self.full_name 
+
+
+class Reward(models.Model):
+    FIFTEEN = 1
+    THREE = 2
+        
+    REWARD_PERCENTAGE_CHOICES = (
+        (FIFTEEN, '15'),
+        (THREE, '3'),
+    )
+    realtor = models.OneToOneField(Realtor, on_delete=models.CASCADE, null=True, blank = True)
+    current_reward_percentage = models.PositiveSmallIntegerField(choices=REWARD_PERCENTAGE_CHOICES, blank=True, null=True)
+    fifteen_percent_unit = models.PositiveSmallIntegerField(default=0)
+    three_percent_unit = models.PositiveSmallIntegerField(default=0)
+
+    def __str__(self):
+        return "{} currently on {} percentage reward".format(self.realtor.first_name,self.current_reward_percentage)
+
+
+class Property(models.Model):
+    property_name = models.CharField(max_length=500,null=False)
+    image = models.ImageField(upload_to='media/properties')
+    property_id = models.CharField(max_length=50, default='')
+    property_type = models.CharField(max_length=15, choices=GENDER,default='None')
+    location = models.CharField(max_length=500,default='',null=False)
+    no_of_unit_or_plot = models.PositiveSmallIntegerField(default=0)
+    price_per_unit_plot = models.CharField(max_length=15,default='')
+    on_promo = models.BooleanField(default=False)
+    promo_price_per_unit_or_plot = models.CharField(max_length=15,default='',blank=True,null=True)
+
+    def save(self, *args, **kwargs):
+        if self.property_name is not None:
+            self.property_id = "{}_{}".format(self.property_name.lower(), generate_referral_code())
+        super(Property, self).save(*args, **kwargs)
+
+    def update(self, *args, **kwargs):
+        print("Update sales",kwargs['no_of_unit_or_plot'])
+        unit_status = kwargs['no_of_unit_or_plot'] < self.no_of_unit_or_plot
+        if unit_status:
+            self.no_of_unit_or_plot = self.no_of_unit_or_plot - kwargs['no_of_unit_or_plot']
+        else:
+            return "Cannot sell at the moment. Units left is lesser than what is to be sold"
+        super(Property, self).update(*args, **kwargs)
+
+    def __str__(self):
+        if self.on_promo:
+            return "Property {} on promo going for {}".format(self.property_name,self.price)
+        return "Property {} going for {}".format(self.property_name,self.price) 
+
+
+
+class SoldProperty(models.Model):
+    property_name = models.CharField(max_length=500,null=False)
+    # image = models.ImageField(upload_to='media/properties')
+    property_id = models.CharField(max_length=50, default='')
+    property_type = models.CharField(max_length=15, choices=GENDER,default='None')
+    location = models.CharField(max_length=500,default='',null=False)
+    no_of_unit_or_plot = models.PositiveSmallIntegerField(default=0)
+    price_per_unit_plot = models.CharField(max_length=15,default='')
+    on_promo = models.BooleanField(default=False)
+    promo_price_per_unit_or_plot = models.CharField(max_length=15,default='',blank=True,null=True)
+
+
+    def __str__(self):
+            return "Property {} was sold on {}. {} units".format(self.property_name,self.no_of_unit_or_plot)
