@@ -187,7 +187,7 @@ if DEBUG:
 else:
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     STATIC_ROOT = 'static'
-    STATIC_URL = '/{STATIC_ROOT}/'
+    STATIC_URL = '/static/'
     # STATIC_URL = f'https://res.cloudinary.com/glodenlanders/raw/upload/v1/{STATIC_ROOT}/'
     # STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 
