@@ -59,8 +59,8 @@ AUTH_USER_MODEL = 'gdapp.MyUser'
 CLOUDINARY_URL = os.getenv("CLOUDINARY_URL")
 
 CLOUDI_NAME = os.getenv('CLOUDINARY_NAME')
-CLOUDI_API_KEY = os.getenv('CLOUDINARY_SECRET_KEY')
-CLOUDI_API_SECRET = os.getenv('CLOUDINARY_API_KEY')
+CLOUDI_API_KEY = os.getenv('CLOUDINARY_API_KEY')
+CLOUDI_API_SECRET = os.getenv('CLOUDINARY_SECRET_KEY')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
