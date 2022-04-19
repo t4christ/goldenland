@@ -42,11 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'cloudinary_storage',
+    'djangocloudistatic',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
     'cloudinary',
     'gunicorn',
-    'djangocloudistatic',
     'crispy_forms',
     'gdapp'
 ]
@@ -185,13 +185,13 @@ if DEBUG:
     )
     MEDIA_URL = '/media/'
     MEDIA_ROOT=os.path.join(BASE_DIR,'media')
-    
+
 else:
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-    STATIC_ROOT = 'staticfiles'
-    STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-    )
+    # STATIC_ROOT = 'staticfiles'
+    # STATICFILES_DIRS = (
+    # os.path.join(BASE_DIR, 'static'),
+    # )
     # STATIC_URL = 'https://res.cloudinary.com/glodenlanders/raw/upload/v1/static/'
     STATIC_URL = '/static/'
     STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
