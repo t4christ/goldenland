@@ -44,8 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gunicorn',
-    'cloudinary_storage',
-    'cloudinary',
+    'djangocloudistatic',
+#    'cloudinary_storage',
+#    'cloudinary',
     'crispy_forms',
     'gdapp'
 ]
@@ -57,7 +58,9 @@ AUTH_USER_MODEL = 'gdapp.MyUser'
 
 CLOUDINARY_URL = os.getenv("CLOUDINARY_URL")
 
-
+CLOUDI_NAME = os.getenv('CLOUDINARY_NAME')
+CLOUDI_API_KEY = os.getenv('CLOUDINARY_SECRET_KEY')
+CLOUDI_API_SECRET = os.getenv('CLOUDINARY_API_KEY')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
