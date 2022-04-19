@@ -186,7 +186,7 @@ if DEBUG:
     MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 else:
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-    STATIC_ROOT = 'static'
+    STATIC_ROOT = 'staticfiles'
     STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
     )
