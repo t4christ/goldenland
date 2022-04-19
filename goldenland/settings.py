@@ -190,7 +190,7 @@ else:
     STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
     )
-    STATIC_URL = 'https://res.cloudinary.com/glodenlanders/raw/upload/v1//static/'
+    STATIC_URL = 'https://res.cloudinary.com/glodenlanders/raw/upload/v1/static/'
     # STATIC_URL = f'https://res.cloudinary.com/glodenlanders/raw/upload/v1/{STATIC_ROOT}/'
     # STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 
