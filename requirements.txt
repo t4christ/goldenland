@@ -8,7 +8,7 @@ djongo
 boto
 Pillow
 django-cloudistatic
-#dj3-cloudinary-storage
-#dj3-cloudinary-storage[video]
+dj3-cloudinary-storage
+dj3-cloudinary-storage[video]
 dj-static
 shortuuid
