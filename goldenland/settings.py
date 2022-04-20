@@ -186,14 +186,14 @@ if DEBUG:
     MEDIA_URL = '/media/'
     MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 else:
-    DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-    STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-    GS_ACCESS_KEY_ID =os.getenv("GCLOUD_API_KEY")
-    GS_SECRET_ACCESS_KEY = os.getenv("GCLOUD_SECRET_KEY")
-    GS_BUCKET_NAME = os.getenv("GCLOUD_BUCKET")
-    GS_PROJECT_ID = os.getenv("GCLOUD_PROJECT")
-    STATIC_URL = '/static/'
-    MEDIA_URL = '/media/'
+    # DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+    # STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+    # GS_ACCESS_KEY_ID =os.getenv("GCLOUD_API_KEY")
+    # GS_SECRET_ACCESS_KEY = os.getenv("GCLOUD_SECRET_KEY")
+    # GS_BUCKET_NAME = os.getenv("GCLOUD_BUCKET")
+    # GS_PROJECT_ID = os.getenv("GCLOUD_PROJECT")
+    STATIC_URL = 'http://goldenland-1bfb1.kxcdn.com/static/'
+    MEDIA_URL = 'http://goldenland-1bfb1.kxcdn.com/media/'
     # DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     STATIC_ROOT = 'static'
     STATICFILES_DIRS = (
