@@ -7,6 +7,8 @@ python-magic
 djongo
 boto
 Pillow
+google-cloud-storage
+django-storages[google]
 django-cloudistatic
 dj3-cloudinary-storage
 dj3-cloudinary-storage[video]
