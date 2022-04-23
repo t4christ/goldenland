@@ -65,6 +65,7 @@ CLOUDI_API_SECRET = os.getenv('CLOUDINARY_SECRET_KEY')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -192,9 +193,11 @@ else:
     # GS_SECRET_ACCESS_KEY = os.getenv("GCLOUD_SECRET_KEY")
     # GS_BUCKET_NAME = os.getenv("GCLOUD_BUCKET")
     # GS_PROJECT_ID = os.getenv("GCLOUD_PROJECT")
-    STATIC_URL = 'http://goldenland-1bfb1.kxcdn.com/static/'
-    MEDIA_URL = 'http://goldenland-1bfb1.kxcdn.com/media/'
-    # DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    MEDIA_ROOT = 'media'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATIC_URL = '/static/'
+    MEDIA_URL = '/media/'
     STATIC_ROOT = 'static'
     STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
