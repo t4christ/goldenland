@@ -204,14 +204,14 @@ else:
     # STATIC_URL = 'https://res.cloudinary.com/glodenlanders/raw/upload/v1/static/'
     
 
-# CLOUDINARY_STORAGE = {
-#     # other settings, like credentials
-#     'MEDIA_TAG': 'media',
-#     'STATIC_TAG': 'static',
-#     'MAGIC_FILE_PATH': 'magic',
-#     'PREFIX': '/media/',
-#     'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'manifest')
-# }
+CLOUDINARY_STORAGE = {
+    # other settings, like credentials
+    'MEDIA_TAG': 'media',
+    'STATIC_TAG': 'static',
+    'MAGIC_FILE_PATH': 'magic',
+    'PREFIX': '/media/',
+    'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'manifest')
+}
 
 LOGGING = {
     'version': 1,
