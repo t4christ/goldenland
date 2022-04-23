@@ -206,14 +206,14 @@ else:
     
     # STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 
-# CLOUDINARY_STORAGE = {
-#     # other settings, like credentials
-#     'MEDIA_TAG': 'media',
-#     'STATIC_TAG': 'static',
-#     'MAGIC_FILE_PATH': 'magic',
-#     'PREFIX': '/media/',
-#     'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'manifest')
-# }
+CLOUDINARY_STORAGE = {
+    # other settings, like credentials
+    'MEDIA_TAG': 'media',
+    'STATIC_TAG': 'static',
+    'MAGIC_FILE_PATH': 'magic',
+    'PREFIX': '/media/',
+    'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'manifest')
+}
 
 LOGGING = {
     'version': 1,
