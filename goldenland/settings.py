@@ -195,13 +195,13 @@ else:
     STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     MEDIA_ROOT = 'media'
-    STATIC_URL = '/static/'
+    # STATIC_URL = '/static/'
     MEDIA_URL = '/media/'
     # STATIC_ROOT = 'staticfiles'
     # STATICFILES_DIRS = (
     # os.path.join(BASE_DIR, 'static'),
     # )
-    # STATIC_URL = 'https://res.cloudinary.com/glodenlanders/raw/upload/v1/static/'
+    STATIC_URL = 'https://res.cloudinary.com/glodenlanders/raw/upload/v1/static/'
     
 
 
