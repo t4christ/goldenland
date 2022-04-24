@@ -207,7 +207,7 @@ else:
 CLOUDINARY_STORAGE = {
     # other settings, like credentials
     'MEDIA_TAG': 'media',
-    # 'STATIC_TAG': 'static',
+    'STATIC_TAG': 'static',
     # 'MAGIC_FILE_PATH': 'magic',
     'PREFIX': '/media/',
     # 'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'manifest')
