@@ -203,9 +203,9 @@ else:
     MEDIA_ROOT = 'media'
     STATIC_URL = '/static/'
     MEDIA_URL = '/media/'
-    STATIC_ROOT = 'staticfiles'
+    STATIC_ROOT = 'static'
     STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'staticfiles'),
     )
     # STATIC_URL = 'https://res.cloudinary.com/glodenlanders/raw/upload/v1/static/'
     
