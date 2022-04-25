@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'cloudinary_storage',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
     'cloudinary',
     'gunicorn',
     'whitenoise',
@@ -199,7 +199,7 @@ else:
     MEDIA_ROOT = 'media'
     STATIC_URL = '/static/'
     MEDIA_URL = '/media/'
-    STATIC_ROOT = 'static'
+    STATIC_ROOT = 'staticfiles'
     STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
     )
@@ -210,8 +210,8 @@ else:
 CLOUDINARY_STORAGE = {
     # other settings, like credentials
     'MEDIA_TAG': 'media',
-    'STATIC_TAG': 'static',
-    'PUBLIC_ID': '105106107',
+    # 'STATIC_TAG': 'static',
+    # 'PUBLIC_ID': '105106107',
     # 'MAGIC_FILE_PATH': 'magic',
     'PREFIX': '/media/',
     # 'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'manifest')
