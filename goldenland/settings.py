@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'gunicorn',
+    'whitenoise',
     # 'djangocloudistatic',
     'crispy_forms',
     'gdapp'
@@ -192,16 +193,17 @@ else:
     # GS_BUCKET_NAME = os.getenv("GCLOUD_BUCKET")
     # GS_PROJECT_ID = os.getenv("GCLOUD_PROJECT")
 
-    STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+    # STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     MEDIA_ROOT = 'media'
-    # STATIC_URL = '/static/'
+    STATIC_URL = '/static/'
     MEDIA_URL = '/media/'
     STATIC_ROOT = 'static'
-    # STATICFILES_DIRS = (
-    # os.path.join(BASE_DIR, 'static'),
-    # )
-    STATIC_URL = 'https://res.cloudinary.com/glodenlanders/raw/upload/v1/static/'
+    STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+    )
+    # STATIC_URL = 'https://res.cloudinary.com/glodenlanders/raw/upload/v1/static/'
     
 
 
