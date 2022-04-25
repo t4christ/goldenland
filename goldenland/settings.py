@@ -198,7 +198,7 @@ else:
     # GS_PROJECT_ID = os.getenv("GCLOUD_PROJECT")
 
     # STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     MEDIA_ROOT = 'media'
     STATIC_URL = '/static/'
