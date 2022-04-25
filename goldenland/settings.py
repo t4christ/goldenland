@@ -195,7 +195,7 @@ else:
     # GS_BUCKET_NAME = os.getenv("GCLOUD_BUCKET")
     # GS_PROJECT_ID = os.getenv("GCLOUD_PROJECT")
 
-    STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+    # STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     MEDIA_ROOT = 'media'
     STATIC_URL = '/static/'
