@@ -55,17 +55,37 @@
       <div class="properties_for_you">
         <div class="properties_content container">
           <h3><span></span>New properties for you</h3>
-          <div class="properties_grid"></div>
+          <div class="properties_grid">
+
+            {% for property in properties %}
+            <div class="property_image animate_up" style="transform: translate(0%); opacity: 0.995;">
+              <a href="pageListing.html"><img class="props_img" style="height:300px;" src="{{property.image.url}}"></a>
+              <div class="property_info">
+                {% if property.on_promo %}
+                <span>N{{property.promo_price_per_unit_or_plot}}</span>
+                {% else %}
+                <span>N{{property.price_per_unit_plot}}</span>
+                {% endif %}
+                <p>{{property.location}}</p>
+              </div>
+            </div>
+            {% endfor %}
+
+          </div>
+          <div class="buttons"></div>
         </div>
       </div>
   
       <!-- ================== popular residence ==================  -->
-      <div class="popular_residence container grid animate_up">
+      <!-- <div class="popular_residence container grid animate_up">
         <h3><span></span> Our Popular Residences</h3>
+        
         <div class="residences">
+
+          {% for property in properties %}
           <div class="residence">
             <div class="residence_image">
-              <img src="{% static 'assets/images/banner1.jpeg' %}" alt="" />
+              <img src="{{property.image.url}}" alt="" />
             </div>
             <span class="location"
               ><img src="{% static 'assets/images/location.png' %}" alt="" /> Lagos,
@@ -89,90 +109,12 @@
               <span class="price">$4 000 000</span>
             </div>
           </div>
-  
-          <div class="residence">
-            <div class="residence_image">
-              <img src="{% static 'assets/images/banner2.jpeg' %}" alt="" />
-            </div>
-            <span class="location"
-              ><img src="{% static 'assets/images/location.png' %}" alt="" /> Lagos,
-              Nigeria</span
-            >
-            <div class="residence_details">
-              <div class="number_of_beds">
-                <img src="{% static 'assets/images/bed.png' %}" alt="" />6Beds
-              </div>
-              <div class="room_size">
-                <img src="{% static 'assets/images/square1.png' %}" alt="" />8x8
-              </div>
-              <div class="square_space">
-                <img src="{% static 'assets/images/square2.png' %}" alt="" /><span
-                  >2000m<sup>2</sup></span
-                >
-              </div>
-            </div>
-            <div class="residence_price_booking">
-              <a href="./html/pageListing.html">Book now</a>
-              <span class="price">$5 000 000</span>
-            </div>
-          </div>
-  
-          <div class="residence">
-            <div class="residence_image">
-              <img src="{% static 'assets/images/banner3.jpeg' %}" alt="" />
-            </div>
-            <span class="location"
-              ><img src="{% static 'assets/images/location.png' %}" alt="" /> Lagos,
-              Nigeria</span
-            >
-            <div class="residence_details">
-              <div class="number_of_beds">
-                <img src="{% static 'assets/images/bed.png' %}" alt="" />5Beds
-              </div>
-              <div class="room_size">
-                <img src="{% static 'assets/images/square1.png' %}" alt="" />8x8
-              </div>
-              <div class="square_space">
-                <img src="{% static 'assets/images/square2.png' %}" alt="" /><span
-                  >2000m<sup>2</sup></span
-                >
-              </div>
-            </div>
-            <div class="residence_price_booking">
-              <a href="./html/pageListing.html">Book now</a>
-              <span class="price">$3 000 000</span>
-            </div>
-          </div>
-  
-          <div class="residence">
-            <div class="residence_image">
-              <img src="{% static 'assets/images/banner4.jpeg' %}" alt="" />
-            </div>
-            <span class="location"
-              ><img src="{% static 'assets/images/location.png' %}" alt="" /> Lagos,
-              Nigeria</span
-            >
-            <div class="residence_details">
-              <div class="number_of_beds">
-                <img src="{% static 'assets/images/bed.png' %}" alt="" />3Beds
-              </div>
-              <div class="room_size">
-                <img src="{% static 'assets/images/square1.png' %}" alt="" />8x8
-              </div>
-              <div class="square_space">
-                <img src="{% static 'assets/images/square2.png' %}" alt="" /><span
-                  >2000m<sup>2</sup></span
-                >
-              </div>
-            </div>
-            <div class="residence_price_booking">
-              <a href="./html/pageListing.html">Book now</a>
-              <span class="price">$2 000 000</span>
-            </div>
-          </div>
+          {% endfor %}
+
+
         </div>
       </div>
-      <div class="black"></div>
+      <div class="black"></div> -->
   
       <!-- =================== Values =================  -->
       <div class="values animate_up">
@@ -299,36 +241,38 @@
       <div class="now_selling animate_up" id="now-selling">
         <h3><span></span> Now Selling</h3>
         <div class="now_selling_content container">
+
+          {% with  now_selling_obj|first as ns %}
           <div class="now_selling_details">
             <div class="now_selling_content_header">
               <h4>The Evidence</h4>
               <div class="now_selling_location_info">
-                <div class="now_title">Title: Excision</div>
+                <div class="now_title">Title: {{ns.title}}</div>
   
                 <div class="now_location">
-                  <img src="{% static 'assets/images/location.png' %}" alt="" /> Ketu, Epe
+                  <img src="{% static 'assets/images/location.png' %}" alt="" /> {{ns.location}}
                 </div>
               </div>
             </div>
   
             <div class="price_size">
               <div class="now_price">
-                <img src="{% static 'assets/images/price.png' %}" alt="" /> N600 000
+                <img src="{% static 'assets/images/price.png' %}" alt="" /> {{ns.price_per_unit_plot}}
               </div>
               <div class="now_size">
-                <img src="{% static 'assets/images/size.png' %}" alt="" /> 600sqm
+                <img src="{% static 'assets/images/size.png' %}" alt="" /> {{ns.unit_of_plot}} sqm
               </div>
             </div>
   
             <div class="now_selling_info">
               <p>
-                The Evidence is an proposed gated community located in the City of
-                Epe. Its's about 5min drive to Ketu Epe Police Station, Federal
-                model college and 35min drive to Ikorodu
+                {{ns.info}}
+
               </p>
             </div>
             <a href="./html/pageListing.html" id="evidence">Learn more</a>
           </div>
+  {% endwith %}
   
           <div class="now_selling_image animate_up">
             <img src="{% static 'assets/images/evidence.jpeg' %}" alt="" />
@@ -361,7 +305,7 @@
             <div class="contact_info">
               <div class="contact_info_details">
                 <span> <b> Email us:</b> goldenlandpeak@gmail.com</span>
-                <span> <b>Call us:</b> +234 816 623 6342</span>
+                <span> <b>Call us:</b> +234 9158365871</span>
                 <span
                   ><b>We are at:</b>Eputu Mall, Eputu Bus Stop, Ajah, Lagos
                 </span>
@@ -377,10 +321,11 @@
           </div>
   
           <div class="contact_form animate_up">
-            <form action="">
+            <form action="/contactus" method="POST">
+              {% csrf_token %}
               <input
                 type="text"
-                name="name"
+                name="full_name"
                 id="name"
                 placeholder="Your full name"
               />
@@ -392,7 +337,7 @@
               />
               <input
                 type="number"
-                name="phone"
+                name="phone_number"
                 id="phone"
                 placeholder="Your phone number"
               />

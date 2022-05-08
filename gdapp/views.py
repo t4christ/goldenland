@@ -1,23 +1,24 @@
 from django.shortcuts import render,redirect,HttpResponseRedirect
 from gdapp.admin import UserCreationForm
-from .models import MyUser,Realtor, RealtorDownline,Property
-from .forms import RealtorForm,LoginForm,RealtorDownlineForm
+from .models import MyUser, NowSelling,Realtor, RealtorClient,Property
+from .forms import RealtorForm,LoginForm,RealtorClientForm
 from django.db import transaction,IntegrityError
+from goldenland.settings import EMAIL_RECEIVER
 from django.contrib import messages
 from .utils import generate_referral_code,get_ip
 from django.contrib.auth import authenticate, login, logout,authenticate
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse 
-
+from .tasks import contactus_task
 # Create your views here.
 
 
 
 
-
 def home(request):
-    obj = None
-    context = {}
+    property_obj = Property.objects.all()
+    now_selling_obj = NowSelling.objects.all()
+    context = {"properties":property_obj,"now_selling_obj":now_selling_obj}
     template = "home.html"
     return render(request,template,context)
 
@@ -60,8 +61,9 @@ def user_logout(request):
 
 
 
-def realtor_register(request):
+def realtor_register(request,referral_code=None):
     # args =  {}
+    # referral_code = request.GET.get('referral')
     register_form = UserCreationForm()
     realtor_form = RealtorForm()
     context = {"register_form": register_form,"realtor_form":realtor_form}
@@ -96,7 +98,10 @@ def realtor_register(request):
                                         user.is_realtor = True
                                         user.save()
                                         realtor = realtor_form.save(commit=False)
+                                        
                                         realtor_user = MyUser.objects.get(username=username)
+                                        if referral_code:
+                                            realtor.referral = referral_code
                                         realtor.realtor = realtor_user
                                         realtor.referral_code = realtor.realtor.username + "_" + generate_referral_code()
                                         realtor.save()
@@ -121,26 +126,52 @@ def realtor_register(request):
 
 
 @login_required
+def realtor_profile(request,referral_code):
+    template = 'realtor/profile.html'  
+    realtor = Realtor.objects.get(referral_code = referral_code)
+    realtor_form = RealtorForm(instance=realtor)
+    context = {"realtor_form":realtor_form}
+    if request.method == "POST":
+        print("PUT")
+        realtor_form = RealtorForm(request.POST)
+        if realtor_form.is_valid():
+            realtor_form.save()
+            messages.success(request, "Profile Updated Successfully")
+            return reverse('gdapp:realtor_dashboard', kwargs={'realtor':request.user.username})
+        else:
+            print("err",realtor_form.errors)
+            messages.error(request, "Please correct the errors below and resubmit.")
+
+
+    return render(request,template,context)
+
+
+
+
+
+@login_required
 def realtor_dashboard(request,realtor):
         print("Realtor",realtor,request.user.username)
         if request.user.username != realtor:
                 messages.error(request, "You must be logged in to access your dashboard.")
                 return redirect("/")
         realtor =  Realtor.objects.get(realtor=request.user)
-        clients = RealtorDownline.objects.filter(referral_code = realtor.referral_code)
-        referral_link = request.build_absolute_uri(reverse('gdapp:client_realtor_info', args=(realtor.referral_code, )))
-        context = {"realtor":realtor,"clients":clients,"referral_link":referral_link}
+        realtor_referral = Realtor.objects.filter(referral = realtor.referral)
+        # clients = RealtorClient.objects.filter(referral_code = realtor.referral_code)
+        profile_link = request.build_absolute_uri(reverse('gdapp:realtor_profile', args=(realtor.referral_code, )))
+        referral_link = request.build_absolute_uri(reverse('gdapp:realtor_referral_register', args=(realtor.referral_code, )))
+        context = {"realtor":realtor,"realtor_referral":realtor_referral,"referral_link":referral_link,"profile_link":profile_link}
         template = "realtor/dashboard.html"
         return render(request,template,context)
         
 
 
 def client_realtor_info(request,referral_code):
-    realtor_downline_form = RealtorDownlineForm()
+    realtor_downline_form = RealtorClientForm()
     context = {"realtor_downline_form":realtor_downline_form}
     template = "realtor/client.html"
     if request.method == 'POST':    
-                realtor_downline_form = RealtorDownlineForm(request.POST)
+                realtor_downline_form = RealtorClientForm(request.POST)
                 if realtor_downline_form.is_valid():
                         realtor_downline =  realtor_downline_form.save(commit=False)
                         realtor = Realtor.objects.get(referral_code=referral_code)
@@ -174,3 +205,17 @@ def sell_property(request):
         return render(request,template)
                         
 
+
+
+
+def contactus(request):
+    full_name = request.POST.get('full_name')
+    email = request.POST.get('email')
+    phone_number = request.POST.get('phone_number')
+    message = request.POST.get('message')
+    subject = "CONTACTING"
+    message = "Hi Admin, {} with the email address {} and phone number {} sent you this message {}".format(full_name,email,phone_number,message)
+    receiver = EMAIL_RECEIVER
+    contactus_task.delay(subject,message,receiver)
+    messages.success(request, "Your Message has been sent. We will get back to you shortly")
+    return redirect("/")

@@ -44,7 +44,7 @@
             >
           </div>
           <div class="profile navs">
-            <a href="#profile">
+            <a href="{{profile_link}}">
               <img src="{% static 'assets/images/outline_person_black_24dp.png' %}" alt="" />
               Profile</a
             >
@@ -72,7 +72,14 @@
           <h3><span></span> Your stats:</h3>
           <div class="referred__clients">
             <p>
-              You have referred <span id="client_number">{{clients |length }}</span> clients to
+              You have referred <strong id="client_number">{{realtor_referral |length }}</strong> 
+              {% if realtor_referral|length > 1 %}
+              realtors 
+              {% else %}
+              realtor
+              {%endif%}
+              to
+              
               Goldenland
             </p>
           </div>
@@ -90,11 +97,11 @@
             </div>
           </div>
           <div class="client__details">
-            <h3>Clients Referred</h3>
-            {% for client in clients %}
+            <h3>Realtors Referred</h3>
+            {% for downline in realtor_referral %}
             <div class="client__info">
-              <h4>{{ client.full_name }}</h4>
-              <span>{{ client.email }}</span>
+              <h4>{{ downline.first_name }} {{ downline.lastname_name }}</h4>
+              <span>{{ downline.email }}</span>
             </div>
             {% endfor %}
             

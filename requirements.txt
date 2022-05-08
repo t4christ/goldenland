@@ -4,6 +4,7 @@ django==3.0
 django-crispy-forms
 psycopg2-binary==2.8.6
 python-magic
+celery[redis]==4.4.2
 djongo
 boto
 Pillow
@@ -15,3 +16,4 @@ dj3-cloudinary-storage
 dj3-cloudinary-storage[video]
 dj-static
 shortuuid
+redis

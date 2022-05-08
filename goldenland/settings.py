@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 ]
 
 
+
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 AUTH_USER_MODEL = 'gdapp.MyUser'
@@ -60,6 +61,27 @@ AUTH_USER_MODEL = 'gdapp.MyUser'
 WHITENOISE_MANIFEST_STRICT = False
 
 
+
+#Celery
+CELERY_BROKER_URL = os.getenv("BROKER_URL") 
+CELERY_RESULT_BACKEND =  os.getenv("BROKER_URL") 
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+
+
+#Email
+EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_RECEIVER = os.getenv("EMAIL_RECEIVER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+
+
+#Cloudinary
 CLOUDINARY_URL = os.getenv("CLOUDINARY_URL")
 
 CLOUDI_NAME = os.getenv('CLOUDINARY_NAME')
@@ -221,18 +243,18 @@ CLOUDINARY_STORAGE = {
     # 'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'manifest')
 }
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-             'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
-        },
-    },
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console'],
+#              'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+#         },
+#     },
+# }

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Realtor,GENDER, RealtorDownline
+from .models import Realtor,GENDER, RealtorClient
 import datetime 
 
 
@@ -53,13 +53,13 @@ class RealtorForm(forms.ModelForm):
 
 
 
-class RealtorDownlineForm(forms.ModelForm):
+class RealtorClientForm(forms.ModelForm):
     full_name = forms.CharField(label="Full Name",required=True, widget=forms.TextInput(attrs={'placeholder':'Full Name'}))
     email = forms.EmailField(label="Email",required=True, widget=forms.TextInput(attrs={'placeholder':'Email Address'}))
     mobile = forms.IntegerField(label="Mobile",required=False, widget=forms.TextInput(attrs={'placeholder':'Mobile'}))
     
     class Meta:
-        model = RealtorDownline
+        model = RealtorClient
         fields = ('full_name','mobile','email',)
 
 

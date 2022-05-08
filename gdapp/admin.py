@@ -1,10 +1,11 @@
 from django import forms
 from django.contrib import admin
-from django.contrib.auth.models import Group
+# from django.contrib.auth.models import Group
+from .utils import generate_referral_code
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.admin import UserAdmin
-from gdapp.models import MyUser,Realtor,RealtorDownline
+from gdapp.models import MyUser,Realtor,RealtorClient,Property,NowSelling
 
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
@@ -140,10 +141,34 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = ()
 
 
+class PropertyAdmin(admin.ModelAdmin):
+    def save_model(self, request, obj, form, change):
+        if not change and obj.property_name is not None:
+            print("Am here")
+            obj.property_id = "{}_{}".format(obj.property_name.lower(), generate_referral_code())
+            super(PropertyAdmin, self).save_model(request, obj, form, change)
+        else:
+            pass
+
+class RealtorAdmin(admin.ModelAdmin):
+    def save_model(self, request, obj, form, change):
+        if obj.referral is None:
+            obj.referral = obj.referral
+            super(RealtorAdmin, self).save_model(request, obj, form, change)
+        else:
+            pass
+
+admin.site.register(Property,PropertyAdmin)
+
 # Now register the new UserAdmin...
 admin.site.register(MyUser, UserAdmin)
-admin.site.register(Realtor)
-admin.site.register(RealtorDownline)
+admin.site.register(Realtor,RealtorAdmin)
+admin.site.register(NowSelling)
+admin.site.register(RealtorClient)
+
+
+
+
 
 # ... and, since we're not using Django's built-in permissions,
 # unregister the Group model from admin.
