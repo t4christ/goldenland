@@ -156,7 +156,7 @@ def realtor_dashboard(request,realtor):
                 messages.error(request, "You must be logged in to access your dashboard.")
                 return redirect("/")
         realtor =  Realtor.objects.get(realtor=request.user)
-        realtor_referral = Realtor.objects.filter(referral = realtor.referral)
+        realtor_referral = Realtor.objects.filter(referral_code = realtor.referral)
         # clients = RealtorClient.objects.filter(referral_code = realtor.referral_code)
         profile_link = request.build_absolute_uri(reverse('gdapp:realtor_profile', args=(realtor.referral_code, )))
         referral_link = request.build_absolute_uri(reverse('gdapp:realtor_referral_register', args=(realtor.referral_code, )))
