@@ -961,6 +961,13 @@ body {
 }
 
 /* =================== About us ================  */
+.about-cores {
+  padding-left:5%;
+}
+.first-h{
+  margin-left:5%;
+}
+
 .about_us {
   margin-top: 2rem;
   display: grid;
