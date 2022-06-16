@@ -9,7 +9,7 @@ from .utils import generate_referral_code,get_ip
 from django.contrib.auth import authenticate, login, logout,authenticate
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse 
-from .tasks import contactus_task
+from .tasks import contactus_task,realtor_referral_task
 # Create your views here.
 
 
@@ -64,6 +64,7 @@ def user_logout(request):
 def realtor_register(request,referral_code=None):
     # args =  {}
     # referral_code = request.GET.get('referral')
+
     register_form = UserCreationForm()
     realtor_form = RealtorForm()
     context = {"register_form": register_form,"realtor_form":realtor_form}
@@ -105,6 +106,10 @@ def realtor_register(request,referral_code=None):
                                         realtor.realtor = realtor_user
                                         realtor.referral_code = realtor.realtor.username + "_" + generate_referral_code()
                                         realtor.save()
+                                        subject = "REFERRAL LINK"
+                                        message = "Hi {}, here is your referral link {}. Use this to invite realtors to your downline and earn a bountiful reward. Welcome to goldenland.".format(realtor_user,request.build_absolute_uri('/realtor/{}'.format(realtor.referral_code)))
+                                        receiver = realtor_user.email
+                                        realtor_referral_task.delay(subject,message,receiver)
                                         # if validate_input(mobile,first_name,last_name,account_number,state_of_origin,account_merchant) == True:
                                         #         realtor_user = MyUser.objects.get(username=username)
                                         #         Realtor.objects.create(realtor=realtor_user,address=address,mobile=mobile,first_name=first_name,last_name=last_name,account_number=account_number,state_of_origin=state_of_origin,account_merchant=account_merchant,gender=gender,date_of_birth=date_of_birth)

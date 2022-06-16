@@ -16,10 +16,9 @@
 
     <div class="hero_section">
         <div class="hero_images">
-          <img src="{% static 'assets/images/banner1.jpeg' %}" alt="" />
-          <img src="{% static 'assets/images/banner2.jpeg' %}" alt="" />
-          <img src="{% static 'assets/images/banner3.jpeg' %}" alt="" />
-          <img src="{% static 'assets/images/banner4.jpeg' %}" alt="" />
+          <img src="{% static 'assets/landingpage/interior1.jpg' %}" alt="" />
+          <img src="{% static 'assets/landingpage/interior2.jpg' %}" alt="" />
+          <img src="{% static 'assets/landingpage/interior3.jpg' %}" alt="" />
         </div>
       </div>
       <div class="hero_text">
@@ -243,6 +242,21 @@
         <div class="now_selling_content container">
 
           {% with  now_selling_obj|first as ns %}
+        {% if ns.is_sold_out %}
+        <div class="now_selling_details">
+          <div class="now_selling_content_header">
+            <h4 style="text-align:center;">The Evidence</h4>
+            <div class="now_selling_location_info">
+              <div>
+                <img style="filter:initial;height:auto;width:60%;margin-left:20%;" src="{% static 'assets/images/sold-out.png' %}" alt="" />
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+        {% else %}
           <div class="now_selling_details">
             <div class="now_selling_content_header">
               <h4>The Evidence</h4>
@@ -272,6 +286,7 @@
             </div>
             <a href="./html/pageListing.html" id="evidence">Learn more</a>
           </div>
+          {% endif %}
   {% endwith %}
   
           <div class="now_selling_image animate_up">

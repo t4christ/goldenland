@@ -30,3 +30,23 @@ def contactus_task(subject,message,receiver):
         print(error)       
     #   send_mail_to(subject,error,receiver)   
         return('contactus_task_done')
+
+
+@shared_task(name='realtor_referral_task')
+def realtor_referral_task(subject,message,receiver):
+
+   is_task_completed= False   
+   error=''   
+   try:       
+      sleep(5)       
+      is_task_completed= True   
+   except Exception as err:       
+      error= str(err)       
+      logger.error(error)   
+   if is_task_completed:       
+       send_mail_to(subject,message,receiver)
+       print("Sent realtor referral code")
+   else:
+        print(error)       
+    #   send_mail_to(subject,error,receiver)   
+        return('contactus_task_done')

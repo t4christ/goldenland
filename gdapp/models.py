@@ -212,6 +212,7 @@ class NowSelling(models.Model):
     price_per_unit_plot = models.CharField(max_length=15,default='')
     on_promo = models.BooleanField(default=False)
     is_popular = models.BooleanField(default=False)
+    is_sold_out =  models.BooleanField(default=False)
     promo_price_per_unit_or_plot = models.CharField(max_length=15,default='',blank=True,null=True)
 
     # def save(self, *args, **kwargs):
