@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from unittest import TextTestRunner
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -204,7 +203,7 @@ USE_L10N = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-if  DEBUG:
+if DEBUG:
     STATIC_URL = '/static/'
     STATIC_ROOT = 'staticfiles'
     STATICFILES_DIRS = (
@@ -224,9 +223,9 @@ else:
     # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     MEDIA_ROOT = 'media'
-    STATIC_URL = '/g_cdn/'
+    STATIC_URL = '/static/'
     MEDIA_URL = '/media/'
-    STATIC_ROOT = 'g_cdn'
+    STATIC_ROOT = 'static'
     STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'staticfiles'),
     )
@@ -237,24 +236,25 @@ else:
 CLOUDINARY_STORAGE = {
     # other settings, like credentials
     'MEDIA_TAG': 'media',
-    'STATIC_TAG': 'g_cdn',
-    'MAGIC_FILE_PATH': 'magic',
+    # 'STATIC_TAG': 'static',
+    # 'PUBLIC_ID': '105106107',
+    # 'MAGIC_FILE_PATH': 'magic',
     'PREFIX': '/media/',
-    'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'manifest')
+    # 'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'manifest')
 }
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-             'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
-        },
-    },
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console'],
+#              'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+#         },
+#     },
+# }
