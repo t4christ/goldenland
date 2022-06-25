@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'cloudinary',
     'gunicorn',
-    # 'whitenoise',
+    'whitenoise',
     # 'djangocloudistatic',
     'crispy_forms',
     'gdapp'
@@ -91,7 +91,7 @@ CLOUDI_API_SECRET = os.getenv('CLOUDINARY_SECRET_KEY')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # "whitenoise.middleware.WhiteNoiseMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -220,8 +220,8 @@ else:
     # GS_BUCKET_NAME = os.getenv("GCLOUD_BUCKET")
     # GS_PROJECT_ID = os.getenv("GCLOUD_PROJECT")
 
-    STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
-    # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    # STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     MEDIA_ROOT = 'media'
     STATIC_URL = '/g_cdn/'
