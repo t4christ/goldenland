@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from .utils import generate_referral_code
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+from cloudinary_storage.storage import VideoMediaCloudinaryStorage
+from cloudinary_storage.validators import validate_video
 
 
 GENDER = (
@@ -172,6 +174,8 @@ class Reward(models.Model):
 class Property(models.Model):
     property_name = models.CharField(max_length=500,null=False)
     image = models.ImageField(upload_to='media/properties')
+    video = models.FileField(upload_to='media/properties/videos',blank=True,storage=VideoMediaCloudinaryStorage(),
+                              validators=[validate_video])
     property_id = models.CharField(max_length=50, default='',null=True,blank=True)
     property_type = models.CharField(max_length=15, choices=PROPERTY_TYPE,default='None')
     location = models.CharField(max_length=500,default='',null=False)

@@ -148,7 +148,8 @@ class PropertyAdmin(admin.ModelAdmin):
             obj.property_id = "{}_{}".format(obj.property_name.lower(), generate_referral_code())
             super(PropertyAdmin, self).save_model(request, obj, form, change)
         else:
-            pass
+            super(PropertyAdmin, self).save_model(request, obj, form, change)
+
 
 class RealtorAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):

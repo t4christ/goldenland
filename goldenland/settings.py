@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from unittest import TextTestRunner
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -46,7 +47,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'cloudinary',
     'gunicorn',
-    'whitenoise',
+    # 'whitenoise',
     # 'djangocloudistatic',
     'crispy_forms',
     'gdapp'
@@ -90,7 +91,7 @@ CLOUDI_API_SECRET = os.getenv('CLOUDINARY_SECRET_KEY')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    # "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -203,7 +204,7 @@ USE_L10N = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-if DEBUG:
+if  DEBUG:
     STATIC_URL = '/static/'
     STATIC_ROOT = 'staticfiles'
     STATICFILES_DIRS = (
@@ -219,13 +220,13 @@ else:
     # GS_BUCKET_NAME = os.getenv("GCLOUD_BUCKET")
     # GS_PROJECT_ID = os.getenv("GCLOUD_PROJECT")
 
-    # STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+    STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
     # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     MEDIA_ROOT = 'media'
-    STATIC_URL = '/static/'
+    STATIC_URL = '/g_cdn/'
     MEDIA_URL = '/media/'
-    STATIC_ROOT = 'static'
+    STATIC_ROOT = 'g_cdn'
     STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'staticfiles'),
     )
@@ -236,11 +237,10 @@ else:
 CLOUDINARY_STORAGE = {
     # other settings, like credentials
     'MEDIA_TAG': 'media',
-    # 'STATIC_TAG': 'static',
-    # 'PUBLIC_ID': '105106107',
-    # 'MAGIC_FILE_PATH': 'magic',
+    'STATIC_TAG': 'g_cdn',
+    'MAGIC_FILE_PATH': 'magic',
     'PREFIX': '/media/',
-    # 'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'manifest')
+    'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'manifest')
 }
 
 # LOGGING = {

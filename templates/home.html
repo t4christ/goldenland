@@ -58,7 +58,20 @@
 
             {% for property in properties %}
             <div class="property_image animate_up" style="transform: translate(0%); opacity: 0.995;">
+              {% if property.video %}
+              <video controls poster = "{% static 'assets/images/Golden Land Invst ltd Black logo.jpg' %}" style="width:100%;height:100%;">
+
+                <source style="width:100%;height:100%;" src="{{property.video.url}}"
+                        type="video/webm">
+          
+                <source style="width:100%;height:100%;" src="{{property.video.url}}"
+                        type="video/mp4">
+            
+                Sorry, your browser doesn't support embedded videos.
+            </video>
+            {% else %}
               <a href="pageListing.html"><img class="props_img" style="height:300px;" src="{{property.image.url}}"></a>
+              {% endif %}
               <div class="property_info">
                 {% if property.on_promo %}
                 <span>N{{property.promo_price_per_unit_or_plot}}</span>
