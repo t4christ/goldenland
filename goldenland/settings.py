@@ -243,7 +243,7 @@ CLOUDINARY_STORAGE = {
     'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'manifest')
 }
 
-# LOGGING = {
+LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
