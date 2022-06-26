@@ -1,0 +1,209 @@
+@import url("../css/index.f4d78af7c75c.css");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.errorlist li{
+color :red !important;
+}
+
+
+
+.becoming_a_realtor {
+  display: grid;
+  padding-top: 7rem;
+  width: 90%;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.becoming_a_realtor .realtor_head > h3 {
+  font-size: var(--larger-font);
+  letter-spacing: -1px;
+}
+
+.realtor_head {
+  display: flex;
+  flex-flow: column;
+  gap: 3rem;
+  background-color: #f8f6f6;
+  padding: 2rem;
+}
+
+.benefits,
+.networking,
+.certifications {
+  display: flex;
+  flex-flow: column;
+  gap: 1rem;
+}
+
+.benefits p,
+.networking p,
+.certifications p {
+  font-size: var(--small-font);
+  line-height: 24px;
+}
+
+.benefits h3,
+.networking h3,
+.certifications h3 {
+  font-size: 24px;
+  line-height: 36px;
+}
+
+.realtor_form {
+  display: grid;
+  gap: 1rem;
+  padding: 4rem 0;
+  max-width: 500px;
+}
+
+.realtor_form h2 {
+  line-height: 36px;
+}
+
+.realtor_form form {
+  display: grid;
+  width: 100%;
+  gap: 1rem;
+}
+
+.realtor_form form input {
+  height: 2.25rem;
+  width: 100%!important;
+  padding-left: 1rem;
+  border: 0.5px solid black;
+  outline: none;
+  border-radius: 5px;
+}
+
+#id_gender{
+  width: 100%;
+}
+
+
+
+/* .div_id_date_of_birth select{
+  width: 100%!important;
+} */
+.realtor_form form button {
+  width: max-content;
+  padding: 0.5rem 1.5rem;
+  background-color: transparent;
+  border: 0.5px solid black;
+  transition: all 0.2s ease-in-out;
+  border-radius: 5px;
+}
+
+.realtor_form form button:hover {
+  background-color: var(--fancy-color-two);
+  color: white;
+  border: none;
+}
+
+
+/* The container must be positioned relative: */
+.custom-select {
+  position: relative;
+  font-family: Arial;
+}
+
+.custom-select select {
+  display: none; /*hide original SELECT element: */
+}
+
+select {
+  /* background-color: DodgerBlue; */
+  margin-bottom:15px;
+  height:36px;
+}
+
+/* Style the arrow inside the select element: */
+select:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+/* Point the arrow upwards when the select box is open (active): */
+select.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+
+/* style the items (options), including the selected item: */
+.select-items div,.select {
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+}
+
+/* Style items (options): */
+.select-items {
+  position: absolute;
+  background-color: DodgerBlue;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+/* Hide the items when the select box is closed: */
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+/* Multistep Form */
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+div input {
+  margin-top:15px;
+  margin-bottom:15px; 
+}
+.tab {
+  display: none;
+}
+#prevBtn {
+  background-color: #bbbbbb;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;  
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #04AA6D;
+}

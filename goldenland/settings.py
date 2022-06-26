@@ -219,8 +219,8 @@ else:
     # GS_BUCKET_NAME = os.getenv("GCLOUD_BUCKET")
     # GS_PROJECT_ID = os.getenv("GCLOUD_PROJECT")
 
-    STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
-    # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    # STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     MEDIA_ROOT = 'media'
     STATIC_URL = '/golden/'
@@ -232,15 +232,15 @@ else:
     # STATIC_URL = 'https://res.cloudinary.com/glodenlanders/raw/upload/v1/static/'
 
 
-CLOUDINARY_STORAGE = {
-    # other settings, like credentials
-    'MEDIA_TAG': 'media',
-    'STATIC_TAG': 'golden',
-    # 'PUBLIC_ID': '105106107',
-    'MAGIC_FILE_PATH': 'magic',
-    'PREFIX': '/media/',
-    'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'manifest')
-}
+# CLOUDINARY_STORAGE = {
+#     # other settings, like credentials
+#     'MEDIA_TAG': 'media',
+#     'STATIC_TAG': 'golden',
+#     # 'PUBLIC_ID': '105106107',
+#     'MAGIC_FILE_PATH': 'magic',
+#     'PREFIX': '/media/',
+#     'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'manifest')
+# }
 
 # LOGGING = {
 #     'version': 1,
