@@ -239,7 +239,7 @@ CLOUDINARY_STORAGE = {
     # 'PUBLIC_ID': '105106107',
     'MAGIC_FILE_PATH': 'magic',
     'PREFIX': '/media/',
-    # 'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'manifest')
+    'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'manifest')
 }
 
 # LOGGING = {
