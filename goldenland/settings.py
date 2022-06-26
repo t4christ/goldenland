@@ -219,13 +219,13 @@ else:
     # GS_BUCKET_NAME = os.getenv("GCLOUD_BUCKET")
     # GS_PROJECT_ID = os.getenv("GCLOUD_PROJECT")
 
-    # STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+    STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
     # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     MEDIA_ROOT = 'media'
-    STATIC_URL = '/static/'
+    STATIC_URL = '/g_cdn/'
     MEDIA_URL = '/media/'
-    STATIC_ROOT = 'static'
+    STATIC_ROOT = 'g_cdn'
     STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'staticfiles'),
     )
@@ -235,9 +235,9 @@ else:
 CLOUDINARY_STORAGE = {
     # other settings, like credentials
     'MEDIA_TAG': 'media',
-    # 'STATIC_TAG': 'static',
+    'STATIC_TAG': 'g_cdn',
     # 'PUBLIC_ID': '105106107',
-    # 'MAGIC_FILE_PATH': 'magic',
+    'MAGIC_FILE_PATH': 'magic',
     'PREFIX': '/media/',
     # 'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'manifest')
 }
