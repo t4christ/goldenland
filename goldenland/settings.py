@@ -223,9 +223,9 @@ else:
     # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     MEDIA_ROOT = 'media'
-    STATIC_URL = '/gold_cdn/'
+    STATIC_URL = '/static/'
     MEDIA_URL = '/media/'
-    STATIC_ROOT = 'gold_cdn'
+    STATIC_ROOT = 'static'
     STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'staticfiles'),
     )
@@ -235,7 +235,7 @@ else:
 CLOUDINARY_STORAGE = {
     # other settings, like credentials
     'MEDIA_TAG': 'media',
-    'STATIC_TAG': 'gold_cdn',
+    'STATIC_TAG': 'static',
     # 'PUBLIC_ID': '105106107',
     'MAGIC_FILE_PATH': 'magic',
     'PREFIX': '/media/',
