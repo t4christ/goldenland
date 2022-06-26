@@ -223,9 +223,9 @@ else:
     # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     MEDIA_ROOT = 'media'
-    STATIC_URL = '/golden/'
+    STATIC_URL = '/static/'
     MEDIA_URL = '/media/'
-    STATIC_ROOT = 'golden'
+    STATIC_ROOT = 'static'
     STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'staticfiles'),
     )
