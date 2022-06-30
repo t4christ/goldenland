@@ -6,8 +6,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.admin import UserAdmin
 from .models import MyUser,Realtor,RealtorClient,Property,NowSelling
-from django.contrib.admin.widgets import FilteredSelectMultiple    
-import guardian
+
 
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
@@ -215,7 +214,7 @@ class GroupAdmin(admin.ModelAdmin):
 
     def has_change_permission(self, request, obj=None):
         return request.user.is_superuser
-        
+
     def has_delete_permission(self, request, obj=None):
         return request.user.is_superuser
 
