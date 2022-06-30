@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from telnetlib import AUTHENTICATION
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -29,7 +30,7 @@ dotenv.load_dotenv()
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -49,7 +50,7 @@ INSTALLED_APPS = [
     'whitenoise',
     # 'djangocloudistatic',
     'crispy_forms',
-    'gdapp'
+    'gdapp',
 ]
 
 
@@ -100,6 +101,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'goldenland.urls'
+
 
 TEMPLATES = [
     {

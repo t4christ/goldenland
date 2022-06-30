@@ -1,11 +1,13 @@
 from django import forms
 from django.contrib import admin
-# from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group
 from .utils import generate_referral_code
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.admin import UserAdmin
-from gdapp.models import MyUser,Realtor,RealtorClient,Property,NowSelling
+from .models import MyUser,Realtor,RealtorClient,Property,NowSelling
+from django.contrib.admin.widgets import FilteredSelectMultiple    
+import guardian
 
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
@@ -17,7 +19,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = MyUser
-        fields = ('username','email')
+        fields = ('username','email',)
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -69,7 +71,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = MyUser
-        fields = ('username','email', 'password','ip_address','is_active', 'is_admin')
+        fields = ('username','email','ip_address','is_active','is_staff',)
 
 
         def clean_password2(self):
@@ -103,6 +105,7 @@ class UserChangeForm(forms.ModelForm):
                 return email
             except:
                 raise forms.ValidationError("Invalid Mail Format or  Email Taken.")
+                
 
 
 
@@ -110,20 +113,30 @@ class UserAdmin(BaseUserAdmin):
     # The forms to add and change user instances
     form = UserChangeForm
     add_form = UserCreationForm
+    model = MyUser
+
+    def has_add_permission(self, request, obj=None):
+        return request.user.is_superuser
+
+    def has_delete_permission(self, request, obj=None):
+        return request.user.is_superuser
+
+    def has_change_permission(self, request, obj=None):
+        return request.user.is_superuser
+
     readonly_fields = [
         'ip_address',
-        'email',
        
     ]
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('username','email','is_admin','is_realtor')
-    list_filter = ('is_admin',)
+    list_display = ('username','email','is_realtor','is_staff',)
+    list_filter = ()
     fieldsets = (
-        (None, {'fields': ( 'password',)}),
+        (None, {'fields': ()}),
         ('Personal info', {'fields': ('username','email',)}),
-        ('Permissions', {'fields': ('is_admin','is_realtor','role')}),
+        ('Permissions', {'fields': ('is_realtor','role','is_staff','is_admin',)}),
         ('Group Permissions', {
             'fields': ('groups',)
         }),
@@ -140,6 +153,21 @@ class UserAdmin(BaseUserAdmin):
     ordering = ('email',)
     filter_horizontal = ()
 
+    # def save_model(self, request, obj, form, change):
+    #     print("My user",change)
+    #     # print("My user1",obj.is_admin)
+    #     print("M",obj.is_staff,obj.username)
+    #     if obj.is_staff:
+    #         print("Am here staff")
+    #         obj.staff = True
+    #         group_name = Group.objects.get(name = 'Realtor')
+    #         user = MyUser.objects.get(username=obj.username)
+    #         group_name.user_set.add(user)
+    #         super(UserAdmin, self).save_model(request, obj, form, change)
+    #     else:
+    #         print("Am in the else")
+    #         obj.staff = False
+    #         super(UserAdmin, self).save_model(request, obj, form, change)
 
 class PropertyAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
@@ -152,16 +180,24 @@ class PropertyAdmin(admin.ModelAdmin):
 
 
 class RealtorAdmin(admin.ModelAdmin):
+    def has_delete_permission(self, request, obj=None):
+        return request.user.is_superuser
+
+    def has_change_permission(self, request, obj=None):
+        return request.user.groups.filter(name='Manager').exists()
+
+
     def save_model(self, request, obj, form, change):
         if obj.referral is None:
             obj.referral = obj.referral
             super(RealtorAdmin, self).save_model(request, obj, form, change)
         else:
-            pass
+            super(RealtorAdmin, self).save_model(request, obj, form, change)
 
 admin.site.register(Property,PropertyAdmin)
 
 # Now register the new UserAdmin...
+
 admin.site.register(MyUser, UserAdmin)
 admin.site.register(Realtor,RealtorAdmin)
 admin.site.register(NowSelling)
@@ -169,23 +205,22 @@ admin.site.register(RealtorClient)
 
 
 
+# Unregister the original Group admin.
+admin.site.unregister(Group)
 
+# Create a new Group admin.
+class GroupAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request, obj=None):
+        return request.user.is_superuser
 
-# ... and, since we're not using Django's built-in permissions,
-# unregister the Group model from admin.
-# admin.site.unregister(Group)
+    def has_change_permission(self, request, obj=None):
+        return request.user.is_superuser
+        
+    def has_delete_permission(self, request, obj=None):
+        return request.user.is_superuser
 
-# Unregister the provided model admin
-# admin.site.unregister(User)
+    # Filter permissions horizontal as well.
+    filter_horizontal = ['permissions']
 
-# Register out own model admin, based on the default UserAdmin
-# @admin.register(MyUser)
-# class CustomUserAdmin(UserAdmin):
-#     list_display = ('first_name','last_name','email','is_realtor')  # Contain only fields in your `custom-user-model`
-#     list_filter = ()  # Contain only fields in your `custom-user-model` intended for filtering. Do not include `groups`since you do not have it
-#     search_fields = ('first_name','last_name')  # Contain only fields in your `custom-user-model` intended for searching
-#     ordering = ()  # Contain only fields in your `custom-user-model` intended to ordering
-#     filter_horizontal = () # Leave it empty. You have neither `groups` or `user_permissions`
-#     add_fieldsets = (
-#             (None, {'fields': ('mobile','groups', 'user_permissions', 'is_superuser', 'is_staff', 'date_joined')}),
-#     )
+# Register the new Group ModelAdmin.
+admin.site.register(Group, GroupAdmin)

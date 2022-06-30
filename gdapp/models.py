@@ -21,7 +21,7 @@ PROPERTY_TYPE= (
 
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, username=None, email=None, password=None):
+    def create_user(self, username, email, password, **extra_fields):
         """
         Creates and saves a User with the given username, email and password.
         """
@@ -33,26 +33,36 @@ class MyUserManager(BaseUserManager):
 
         user = self.model(
             username = username,
-            email = self.normalize_email(email),
+            email = self.normalize_email(email), **extra_fields
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, email,  password):
+    def create_superuser(self,username,email,password,**extra_fields):
         """
         Creates and saves a superuser with the given username, email and password.
         """
 
-        user = self.create_user(
-			username=username,
-			email=email,
-            password=password
-        )
-        user.is_admin = True
-        user.save(using=self._db)
-        return user
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('is_active', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError(_('Superuser must have is_staff=True.'))
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError(_('Superuser must have is_superuser=True.'))
+        return self.create_user(username,email, password, **extra_fields)       
+
+        # user = self.create_user(
+		# 	username=username,
+		# 	email=email,
+        #     password=password
+        # )
+        # user.is_admin = True
+        # user.save(using=self._db)
+        # return user
 
 
 
@@ -72,7 +82,7 @@ class MyUser(AbstractBaseUser,PermissionsMixin):
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,
-        default="youremailisrequired",
+        default="newuser@goldenland.ng",
         unique=True,
     )
 
@@ -86,6 +96,8 @@ class MyUser(AbstractBaseUser,PermissionsMixin):
     #                 verbose_name='Is Paid Member')
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+
 
     objects = MyUserManager()
 
@@ -110,11 +122,11 @@ class MyUser(AbstractBaseUser,PermissionsMixin):
         # Simplest possible answer: Yes, always
         return True
 
-    @property
-    def is_staff(self):
-        "Is the user a member of staff?"
-        # Simplest possible answer: All admins are staff
-        return self.is_admin
+    # @property
+    # def is_staff(self):
+    #     "Is the user a member of staff?"
+    #     # Simplest possible answer: All admins are staff
+    #     return self.is_admin
 
 
 
