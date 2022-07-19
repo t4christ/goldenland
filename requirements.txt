@@ -1,19 +1,24 @@
-python-dotenv
-gunicorn
-django==3.0
-django-crispy-forms
-psycopg2-binary==2.8.6
-python-magic
-celery[redis]==4.4.2
-djongo
-boto
-Pillow
-whitenoise
-google-cloud-storage
-django-storages[google]
-django-cloudistatic
-dj3-cloudinary-storage
-dj3-cloudinary-storage[video]
-dj-static
-shortuuid
-redis
+# python-dotenv
+# gunicorn
+# django==3.0
+# django-crispy-forms
+# psycopg2-binary==2.8.6
+# python-magic
+# celery[redis]==4.4.2
+# djongo
+# boto
+# Pillow
+# whitenoise
+# google-cloud-storage
+# django-storages[google]
+# django-cloudistatic
+# dj3-cloudinary-storage
+# dj3-cloudinary-storage[video]
+# dj-static
+# shortuuid
+# redis
+
+azure-mgmt-resource>=2.1.0 
+azure-mgmt-storage>=3.0.0 
+haikunator 
+msrestazure

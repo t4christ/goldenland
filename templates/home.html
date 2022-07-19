@@ -258,7 +258,7 @@
         {% if ns.is_sold_out %}
         <div class="now_selling_details">
           <div class="now_selling_content_header">
-            <h4 style="text-align:center;">The Evidence</h4>
+            <h4 style="text-align:center;">{{ns.property_name}}</h4>
             <div class="now_selling_location_info">
               <div>
                 <img style="filter:initial;height:auto;width:60%;margin-left:20%;" src="{% static 'assets/images/sold-out.png' %}" alt="" />
@@ -272,7 +272,7 @@
         {% else %}
           <div class="now_selling_details">
             <div class="now_selling_content_header">
-              <h4>The Evidence</h4>
+              <h4>{{ns.property_name}}</h4>
               <div class="now_selling_location_info">
                 <div class="now_title">Title: {{ns.title}}</div>
   
