@@ -6,6 +6,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.admin import UserAdmin
 from .models import MyUser,Realtor,RealtorClient,Property,NowSelling
+from django.db import models
 
 
 
