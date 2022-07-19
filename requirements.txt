@@ -12,6 +12,7 @@ whitenoise
 google-cloud-storage
 django-storages[google]
 django-cloudistatic
+django-markdown
 dj3-cloudinary-storage
 dj3-cloudinary-storage[video]
 dj-static

@@ -8,6 +8,14 @@ from django.contrib.auth.admin import UserAdmin
 from .models import MyUser,Realtor,RealtorClient,Property,NowSelling
 
 
+
+
+class SomeModelAdmin(admin.ModelAdmin):
+    formfield_overrides = { models.TextField: {'widget': forms.Textarea(attrs={'class':'ckeditor'})}, }
+
+    class Media:
+        js = ("https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js",)
+
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
@@ -199,7 +207,7 @@ admin.site.register(Property,PropertyAdmin)
 
 admin.site.register(MyUser, UserAdmin)
 admin.site.register(Realtor,RealtorAdmin)
-admin.site.register(NowSelling)
+admin.site.register(NowSelling,SomeModelAdmin)
 admin.site.register(RealtorClient)
 
 
